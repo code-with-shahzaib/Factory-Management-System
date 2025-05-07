@@ -51,7 +51,8 @@ Ensure you have the following installed:
 
 1. 1.  Clone this repository:
 
-`git clone git@github.com:code-with-shahzaib/Factory-Management-System.git cd factory-management-software`
+`git clone git@github.com:code-with-shahzaib/Factory-Management-System.git 
+ cd factory-management-software`
 
 1. 2.  Install dependencies:
 `pip install jinja2 weasyprint`
