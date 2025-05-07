@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice #{{ invoice_id }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .invoice { max-width: 800px; margin: 0 auto; border: 1px solid #ccc; padding: 20px; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .company { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .details { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .client { width: 50%; }
+        .invoice-info { width: 40%; text-align: right; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .total { text-align: right; font-weight: bold; }
+        .footer { margin-top: 30px; text-align: center; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header">
+            <div class="company">Premax Arts & Designs</div>
+            <div>12 Factory Street, Industrial Area, Fasailabad</div>
+            <div>Phone: 042 3456-7890 | Email: info@premax.com</div>
+        </div>
+        
+        <div class="details">
+            <div class="client">
+                <strong>Bill To:</strong><br>
+                {% if client_company %}{{ client_company }}<br>{% endif %}
+                {{ client_name }}<br>
+                {% if client_address %}{{ client_address }}{% endif %}
+            </div>
+            
+            <div class="invoice-info">
+                <strong>Invoice #{{ invoice_id }}</strong><br>
+                Order #{{ order_id }}<br>
+                Date: {{ invoice_date }}<br>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ design_name }}</td>
+                    <td>PKR {{ "%.2f"|format(unit_price) }}</td>
+                    <td>{{ quantity }}</td>
+                    <td>PKR {{ "%.2f"|format(subtotal) }}</td>
+                </tr>
+                {% if tax > 0 %}
+                <tr>
+                    <td colspan="3" class="total">Tax ({{ tax }}%)</td>
+                    <td>PKR {{ "%.2f"|format(subtotal * tax / 100) }}</td>
+                </tr>
+                {% endif %}
+                {% if discount > 0 %}
+                <tr>
+                    <td colspan="3" class="total">Discount</td>
+                    <td>-PKR {{ "%.2f"|format(discount) }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td colspan="3" class="total">Total</td>
+                    <td>PKR {{ "%.2f"|format(total) }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="footer">
+            Thank you for your business!<br>
+            Payment due within 30 days. Please make checks payable to Premax Arts & Designs.
+        </div>
+    </div>
+</body>
+</html>
